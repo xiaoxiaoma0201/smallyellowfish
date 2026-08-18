@@ -1,0 +1,4 @@
+agent:
+  service:
+    # 仅供 debug Profile 的本地联调；生产 Profile 不提供默认服务令牌。
+    auth-token: ${AGENT_SERVICE_AUTH_TOKEN:debug-agent-service}

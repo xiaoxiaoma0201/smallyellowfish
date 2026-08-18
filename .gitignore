@@ -1,0 +1,61 @@
+# 敏感配置（含 API Key，勿提交）
+agent.env
+app.env
+.env
+*.env.local
+
+# 数据库文件（含会话数据）
+*.db
+*.db-shm
+*.db-wal
+backend/data/
+
+# 会话持久化
+backend/data/session_store.db*
+
+# Python 虚拟环境与缓存
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+
+# Node.js
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# Java / Maven
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Maven 构建缓存（约 150MB，勿入库）
+ecommerce-backend/docker/m2-cache.tar.gz
+*.tar.gz
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker 数据卷（本地持久化）
+mysql-data/
+chroma-data/
+
+# 日志
+*.log
+logs/

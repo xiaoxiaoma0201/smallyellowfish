@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: demo-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-agent_demo}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  chroma:
+    image: chromadb/chroma:1.0.8
+    container_name: demo-chroma
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+
+  ecommerce-service:
+    build:
+      context: ./ecommerce-backend
+    container_name: ecommerce-service
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-agent_demo}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      SPRING_PROFILES_ACTIVE: debug
+      AGENT_SERVICE_BASE_URL: ${AGENT_SERVICE_BASE_URL:-http://host.docker.internal:8000}
+      AGENT_SERVICE_AUTH_TOKEN: ${AGENT_SERVICE_AUTH_TOKEN:-debug-agent-service}
+      # Docker Desktop 会把 host.docker.internal 同时解析为 IPv6（连不上宿主 IPv4 监听），
+      # JVM 默认可能优先 IPv6 直到读超时；强制走 IPv4（extra_hosts 已提供 192.168.65.254）。
+      JAVA_TOOL_OPTIONS: -Djava.net.preferIPv4Stack=true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    # 强制 host.docker.internal 解析到宿主 IPv4（Docker Desktop 默认解析为 IPv6，
+    # 而 Agent 只监听 IPv4，Java 直连 IPv6 会等到读超时才降级为"客服服务暂时繁忙"）。
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8081:8081"
+
+volumes:
+  mysql-data:
+  chroma-data:
