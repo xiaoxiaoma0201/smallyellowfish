@@ -305,12 +305,6 @@ git push origin feature/your-feature
 
 ---
 
-## 📄 许可证 / License
-
-本仓库采用 [Apache License 2.0](LICENSE) 许可证。
-
----
-
 ## 👥 作者 / Authors
 
 - **xiaoxiaoma0201** — 核心开发
