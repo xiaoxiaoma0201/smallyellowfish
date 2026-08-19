@@ -241,9 +241,9 @@ curl -s -X POST http://127.0.0.1:8000/eval/run
 |-----------|------------|
 | **CS Agent** | Python 3.10+, FastAPI, LangChain, ChromaDB |
 | **LLM** | Alibaba Cloud DashScope (Qwen3.7-Max) |
-| **E-commerce GW** | Java 17, Spring Boot, MyBatis-Plus |
+| **E-commerce GW** | Java 17, Spring Boot, Spring Data JPA |
 | **Database** | MySQL 8.0 |
-| **Vector DB** | ChromaDB 1.0.8 |
+| **Vector DB** | ChromaDB 1.5.8 |
 | **Frontend** | React 18, Vite, TypeScript |
 | **Deployment** | Docker Compose |
 

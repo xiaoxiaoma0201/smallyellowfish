@@ -243,9 +243,9 @@ curl -s -X POST http://127.0.0.1:8000/eval/run
 |------|------|
 | **客服 Agent** | Python 3.10+, FastAPI, LangChain, ChromaDB |
 | **大模型** | 阿里云 DashScope (Qwen3.7-Max) |
-| **电商网关** | Java 17, Spring Boot, MyBatis-Plus |
+| **电商网关** | Java 17, Spring Boot, Spring Data JPA |
 | **数据库** | MySQL 8.0 |
-| **向量库** | ChromaDB 1.0.8 |
+| **向量库** | ChromaDB 1.5.8 |
 | **前端** | React 18, Vite, TypeScript |
 | **部署** | Docker Compose |
 
