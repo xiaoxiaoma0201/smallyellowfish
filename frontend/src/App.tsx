@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 import { EvaluationPanel } from "./components/EvaluationPanel";
 import { MessageList } from "./components/MessageList";
@@ -72,14 +72,14 @@ export default function App() {
 
   useEffect(() => {
     setToggles((current) => ({
-      tools: current.tools && learningAvailability.tools,
-      rag: current.rag && learningAvailability.rag,
-      reasoning: current.reasoning && learningAvailability.reasoning,
+      tools: current.tools && capabilityAvailability.tools,
+      rag: current.rag && capabilityAvailability.rag,
+      reasoning: current.reasoning && capabilityAvailability.reasoning,
     }));
-  }, [learningAvailability.tools, learningAvailability.rag, learningAvailability.reasoning]);
+  }, [capabilityAvailability.tools, capabilityAvailability.rag, capabilityAvailability.reasoning]);
 
   function toggleLearning(key: keyof LearningToggles) {
-    if (!learningAvailability[key]) {
+    if (!capabilityAvailability[key]) {
       return;
     }
     setToggles((current) => ({ ...current, [key]: !current[key] }));
@@ -162,33 +162,33 @@ export default function App() {
               <div className="learning-switch" aria-label="Learning toggles">
                 <button
                   className={toggles.tools ? "active" : ""}
-                  disabled={!learningAvailability.tools}
+                  disabled={!capabilityAvailability.tools}
                   onClick={() => toggleLearning("tools")}
                   type="button"
                   aria-pressed={toggles.tools}
                 >
                   <span>工具调用</span>
-                  <small>{learningAvailability.tools ? "显示 Action、Observation 和 Tool Trace" : "当前版本未开放"}</small>
+                  <small>{capabilityAvailability.tools ? "显示 Action、Observation 和 Tool Trace" : "当前版本未开放"}</small>
                 </button>
                 <button
                   className={toggles.rag ? "active" : ""}
-                  disabled={!learningAvailability.rag}
+                  disabled={!capabilityAvailability.rag}
                   onClick={() => toggleLearning("rag")}
                   type="button"
                   aria-pressed={toggles.rag}
                 >
                   <span>RAG 引用</span>
-                  <small>{learningAvailability.rag ? "突出知识库命中和 citations" : "当前版本未开放"}</small>
+                  <small>{capabilityAvailability.rag ? "突出知识库命中和 citations" : "当前版本未开放"}</small>
                 </button>
                 <button
                   className={toggles.reasoning ? "active" : ""}
-                  disabled={!learningAvailability.reasoning}
+                  disabled={!capabilityAvailability.reasoning}
                   onClick={() => toggleLearning("reasoning")}
                   type="button"
                   aria-pressed={toggles.reasoning}
                 >
                   <span>Reasoning</span>
-                  <small>{learningAvailability.reasoning ? "展示 reasoning_content 和执行链路" : "当前版本未开放"}</small>
+                  <small>{capabilityAvailability.reasoning ? "展示 reasoning_content 和执行链路" : "当前版本未开放"}</small>
                 </button>
               </div>
             </div>
